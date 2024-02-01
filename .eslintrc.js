@@ -4,7 +4,7 @@ const importRules = require('./rules/import.js')
 const typescriptRule = require('./rules/typescriptEslint.js')
 
 module.exports = {
-  ignorePatterns: ['.eslintrc.js'],
+  ignorePatterns: ['.eslintrc.js', 'jest.config.js'],
   parser: '@typescript-eslint/parser',
   env: {
     browser: true,
@@ -20,6 +20,7 @@ module.exports = {
     'sort-keys',
   ],
   extends: [
+    'plugin:react/recommended',
     'prettier',
     'plugin:prettier/recommended',
     'eslint:recommended',
@@ -38,14 +39,11 @@ module.exports = {
     ...reactRules,
   },
   parserOptions: {
-    babelOptions: {
-      presets: [require.resolve('next/babel')],
-      ecmaFeatures: {
-        jsx: true,
-      },
-      ecmaVersion: 'latest',
-      sourceType: 'module',
+    ecmaFeatures: {
+      jsx: true, // Allows for the parsing of JSX
     },
+    ecmaVersion: 'latest',
+    sourceType: 'module', // Allows for the use of imports
     project: './tsconfig.json',
   },
 }
